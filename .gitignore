@@ -1,0 +1,4 @@
+*.pyc
+.build
+hardware.cfg
+.holder
