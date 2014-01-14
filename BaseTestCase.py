@@ -1,6 +1,7 @@
 import os
 import serial
 import subprocess
+import time
 import unittest
 
 from Configuration import config
@@ -79,5 +80,8 @@ class BaseTestCase(unittest.TestCase):
 		with serial.Serial(config.serial_port, 
 						   config.baud_rate, 
 						   timeout=timeout) as ser:
-			output = ''.join(ser.readlines())
+			start = time.time()
+			output = ''
+			while time.time() - start < timeout:
+				output += ser.readline()
 			self.verifyOutput(output)
