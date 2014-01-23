@@ -1,6 +1,6 @@
 import BaseTestCase
 
-class BuildTest(BaseTestCase.BaseTestCase):
+class InternetTime(BaseTestCase.BaseTestCase):
 	def verifyOutput(self, output):
 		self.assertRegexpMatches(output, 'Locating time server...')
 		self.assertRegexpMatches(output, 'connected!')

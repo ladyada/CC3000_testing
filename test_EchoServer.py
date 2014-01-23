@@ -10,7 +10,7 @@ TIMEOUT_SECONDS = 30.0
 TEST_DATA = 'Test data string.'
 
 
-class BuildTest(BaseTestCase.BaseTestCase):
+class EchoServer(BaseTestCase.BaseTestCase):
 	def verifyOutput(self, output):
 		# Verify server is listening for connections.
 		self.assertRegexpMatches(output, 'Listening for connections...')

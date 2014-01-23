@@ -1,6 +1,6 @@
 import BaseTestCase
 
-class BuildTest(BaseTestCase.BaseTestCase):
+class ntpTest(BaseTestCase.BaseTestCase):
 	def verifyOutput(self, output):
 		self.assertRegexpMatches(output, 'Current local time is:\r\n\d+:\d+:\d+.\d+')
 		self.assertRegexpMatches(output, 'Day of year: \d+')

@@ -1,6 +1,6 @@
 import BaseTestCase
 
-class BuildTest(BaseTestCase.BaseTestCase):
+class GeoLocation(BaseTestCase.BaseTestCase):
 	def verifyOutput(self, output):
 		self.assertRegexpMatches(output, 'Connecting to geo server...')
 		self.assertRegexpMatches(output, 'Reading response...OK')
