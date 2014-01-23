@@ -40,6 +40,18 @@ class BaseTestCase(unittest.TestCase):
 		"""
 		return config.read_timeout_seconds
 
+	def getSketchParameters(self):
+		"""
+		Return a dictionary of custom #DEFINE parameters that are passed to the sketch.
+		Each dictionary entry should have a string key that is the define name, and a
+		string value that is the define value.  For example a sketch that has:
+		  int foo = BAR;
+		Can have the parameter BAR set to the value 10 by returning the following
+		dictionary from this function:
+		  { 'BAR': 10 }
+		"""
+		return {}
+
 	def runTest(self):
 		# Build the test sketch.
 		options = ''
@@ -60,14 +72,16 @@ class BaseTestCase(unittest.TestCase):
 					# flag like -DWLAN_SSID=\"foo\" where foo is the SSID.
 					' \'-DWLAN_SSID=\\\\"\'"\'"%s\\\\"\'"\'"\''
 					' \'-DWLAN_PASS=\\\\"\'"\'"%s\\\\"\'"\'"\''
-					' -DWLAN_SECURITY=%s'
-					' -ffunction-sections -fdata-sections -g -Os -w"' % 
+					' -DWLAN_SECURITY=%s' % 
 						(config.adafruit_cc3000_irq,
-						 config.adafruit_cc3000_vbat,
-						 config.adafruit_cc3000_cs,
-						 config.wlan_ssid,
-						 config.wlan_pass,
-						 config.wlan_security))
+							 config.adafruit_cc3000_vbat,
+							 config.adafruit_cc3000_cs,
+							 config.wlan_ssid,
+							 config.wlan_pass,
+							 config.wlan_security))
+		for key, value in self.getSketchParameters().iteritems():
+			command += ' -D%s=%s' % (key, value)
+		command += ' -ffunction-sections -fdata-sections -g -Os -w"'
 		subprocess.check_call(command, shell=True, cwd=self.getSketchPath())
 		# Upload the test sketch.
 		command = 'ino upload'
