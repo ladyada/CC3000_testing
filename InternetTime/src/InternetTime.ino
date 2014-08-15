@@ -54,11 +54,11 @@ void setup(void)
     for(;;);
   }
 
-  uint16_t firmware = checkFirmwareVersion();
-  if ((firmware != 0x113) && (firmware != 0x118)) {
-    Serial.println(F("Wrong firmware version!"));
-    for(;;);
-  }
+//  uint16_t firmware = checkFirmwareVersion();
+//  if ((firmware != 0x113) && (firmware != 0x118)) {
+//    Serial.println(F("Wrong firmware version!"));
+//    for(;;);
+//  }
   
   displayMACAddress();
   

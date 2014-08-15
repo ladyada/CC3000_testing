@@ -69,11 +69,11 @@ void setup(void)
    }
 */
   
-  uint16_t firmware = checkFirmwareVersion();
-  if ((firmware != 0x113) && (firmware != 0x118)) {
-    Serial.println(F("Wrong firmware version!"));
-    for(;;);
-  }
+//  uint16_t firmware = checkFirmwareVersion();
+//  if ((firmware != 0x113) && (firmware != 0x118)) {
+//    Serial.println(F("Wrong firmware version!"));
+//    for(;;);
+//  }
   
   displayMACAddress();
   
@@ -247,10 +247,14 @@ bool displayConnectionDetails(void)
 
 void listSSIDResults(void)
 {
-  uint8_t valid, rssi, sec, index;
+  uint32_t index;
+  uint8_t valid, rssi, sec;
   char ssidname[33]; 
 
-  index = cc3000.startSSIDscan();
+  if (!cc3000.startSSIDscan(&index)) {
+    Serial.println(F("SSID scan failed!"));
+    return;
+  }
 
   Serial.print(F("Networks found: ")); Serial.println(index);
   Serial.println(F("================================================"));
